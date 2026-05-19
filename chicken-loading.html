@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>雞在跑 Loading</title>
+  <style>
+    :root{--bg:#f0f4f8;--chicken:#ffdd57;--beak:#ff9f1a;--leg:#d86b2a;--shadow:rgba(0,0,0,.12)}
+    html,body{height:100%;margin:0}
+    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--bg),#fff);font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", sans-serif}
+    .stage{width:360px;height:220px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+
+    /* chicken container */
+    .runner{position:relative;width:220px;height:110px}
+    .ground{position:absolute;left:0;right:0;bottom:10px;height:6px;border-radius:6px;background:linear-gradient(90deg,#e6eef6,#dbeaf8);box-shadow:0 6px 12px var(--shadow)}
+
+    /* simple SVG scales to container */
+    svg{width:220px;height:110px;overflow:visible}
+
+    /* animations */
+    .chicken{transform-origin:center;animation:bob 0.6s ease-in-out infinite}
+    @keyframes bob{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+
+    .leg-left,.leg-right{transform-origin:top center;animation:leg 0.35s linear infinite}
+    .leg-right{animation-delay:0.175s}
+    @keyframes leg{0%{transform:rotate(12deg)}50%{transform:rotate(-22deg)}100%{transform:rotate(12deg)}}
+
+    .wing{transform-origin:30% 30%;animation:flap 0.45s ease-in-out infinite}
+    @keyframes flap{0%{transform:rotate(6deg)}50%{transform:rotate(-18deg)}100%{transform:rotate(6deg)}}
+
+    .shadow{transform-origin:center;animation:shadow 0.6s ease-in-out infinite}
+    @keyframes shadow{0%{transform:scaleX(1)}50%{transform:scaleX(0.9)}100%{transform:scaleX(1)}}
+
+    .loading-text{margin-top:14px;color:#2b3a4a;font-weight:600}
+    .dots{display:inline-block;margin-left:8px;vertical-align:middle}
+    .dots span{display:inline-block;width:6px;height:6px;margin:0 3px;background:#2b3a4a;border-radius:50%;opacity:.2;animation:blink 1s infinite}
+    .dots span:nth-child(2){animation-delay:.1s}
+    .dots span:nth-child(3){animation-delay:.2s}
+    @keyframes blink{0%{opacity:.2}50%{opacity:1}100%{opacity:.2}}
+
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="runner">
+      <div class="ground"></div>
+      <svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg" class="chicken" aria-hidden="true">
+        <!-- body -->
+        <g transform="translate(110,50)">
+          <ellipse cx="0" cy="0" rx="52" ry="36" fill="var(--chicken)" stroke="#f6c84a" stroke-width="2"/>
+          <!-- wing -->
+          <g class="wing" transform="translate(-10,-6)">
+            <path d="M-6 0 q20 24 46 6 q-18 14 -46 -6" fill="#ffd966"/>
+          </g>
+          <!-- head -->
+          <g transform="translate(48,-18)">
+            <circle cx="0" cy="0" r="18" fill="var(--chicken)" stroke="#f6c84a" stroke-width="2"/>
+            <circle cx="-4" cy="-2" r="3" fill="#222"/>
+            <path d="M8 -2 l10 4 l-10 2 z" fill="var(--beak)"/>
+          </g>
+          <!-- tail -->
+          <g transform="translate(-60,-8)">
+            <path d="M0 0 q-8 -10 -2 -18 q6 6 12 8 q-3 6 -10 10" fill="#ffd84d"/>
+          </g>
+
+          <!-- left leg -->
+          <g transform="translate(-18,28)">
+            <g class="leg-left">
+              <rect x="-3" y="0" width="6" height="26" rx="2" fill="var(--leg)"/>
+              <path d="M-10 26 q10 6 20 0" fill="#c05a1f" opacity=".9"/>
+            </g>
+          </g>
+
+          <!-- right leg -->
+          <g transform="translate(6,28)">
+            <g class="leg-right">
+              <rect x="-3" y="0" width="6" height="26" rx="2" fill="var(--leg)"/>
+              <path d="M-10 26 q10 6 20 0" fill="#c05a1f" opacity=".9"/>
+            </g>
+          </g>
+
+        </g>
+
+        <!-- shadow -->
+        <ellipse class="shadow" cx="110" cy="92" rx="36" ry="8" fill="var(--shadow)"/>
+      </svg>
+    </div>
+    <div class="loading-text">載入中<div class="dots"><span></span><span></span><span></span></div></div>
+  </div>
+</body>
+</html>
